@@ -8,4 +8,6 @@ CLI weather query tool using the new Hong Kong Observatory Open Data API.
 
 Features implemented:
 - Current weather report
-- District temperature report
+- District weather report
+  - Temperature
+  - Rainfall
