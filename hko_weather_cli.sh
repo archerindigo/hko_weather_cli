@@ -58,7 +58,7 @@ gen_district_report()
         return 1
     fi
 
-    list_districts=$(echo "$report" | jq -r '.temperature.data[].place')
+    list_districts=$(echo "$report" | jq -r '.temperature.data | sort_by(.place) | .[].place')
 
     # Put into array
     IFS=$'\n'
@@ -75,9 +75,9 @@ gen_district_report()
     read choice_district
     choice_district=$(( $choice_district - 1 ))
 
-    local district_name=$(echo "$report" | jq -r ".temperature.data["$choice_district"].place")
-    local cur_temp=$(echo "$report" | jq -r ".temperature.data["$choice_district"].value")
-    local temp_unit=$(echo "$report" | jq -r ".temperature.data["$choice_district"].unit")
+    local district_name=${array_districts[$choice_district]}
+    local cur_temp=$(echo "$report" | jq -r ".temperature.data[] | select(.place==\"$district_name\").value")
+    local temp_unit=$(echo "$report" | jq -r ".temperature.data[] | select(.place==\"$district_name\").unit")
     echo ""
     echo -e "Weather of \033[1;37m$district_name\033[0m:"
     echo "Temperature: $cur_temp $temp_unit"
