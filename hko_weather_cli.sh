@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -u
 
 URL_CUR_WEATHER_RPT=https://data.weather.gov.hk/weatherAPI/opendata/weather.php
