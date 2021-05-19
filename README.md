@@ -1,5 +1,5 @@
 # hko-weather-cli
-CLI weather query tool using the new Hong Kong Observatory Open Data API.
+CLI weather query tool using the new [Hong Kong Observatory Open Data API](https://www.hko.gov.hk/en/abouthko/opendata_intro.htm).
 
 ## Shall Script Version
 ### Prerequisites
