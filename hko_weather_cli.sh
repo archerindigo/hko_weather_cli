@@ -78,12 +78,15 @@ gen_district_report()
     local district_name=${array_districts[$choice_district]}
     local cur_temp=$(echo "$report" | jq -r ".temperature.data[] | select(.place==\"$district_name\").value")
     local temp_unit=$(echo "$report" | jq -r ".temperature.data[] | select(.place==\"$district_name\").unit")
-    local cur_rainfall=$(echo "$report" | jq -r ".rainfall.data[] | select(.place==\"$district_name\").max")
+    local rainfall_max=$(echo "$report" | jq -r ".rainfall.data[] | select(.place==\"$district_name\").max")
+    local rainfall_min=$(echo "$report" | jq -r ".rainfall.data[] | select(.place==\"$district_name\").min")
     local rainfall_unit=$(echo "$report" | jq -r ".rainfall.data[] | select(.place==\"$district_name\").unit")
     echo ""
     echo -e "Weather of \033[1;37m$district_name\033[0m:"
     echo "Temperature: $cur_temp $temp_unit"
-    echo "Maximum railfall: $cur_rainfall $rainfall_unit"
+    [ -n "$rainfall_min" ] && echo "Minimum railfall: $rainfall_min $rainfall_unit"
+    [ -n "$rainfall_max" ] && echo "Maximum railfall: $rainfall_max $rainfall_unit"
+    [ -z "$rainfall_min" -a -z "$rainfall_max" ] && echo "No rainfall record"
 }
 
 #### Main ####
